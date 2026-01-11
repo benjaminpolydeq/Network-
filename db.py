@@ -1,26 +1,12 @@
-from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, Boolean, func
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
 
-engine = create_engine("sqlite:///crm.db")
-Session = sessionmaker(bind=engine)
 Base = declarative_base()
+DB_PATH = "sqlite:///network.db"
 
-class Contact(Base):
-    __tablename__ = "contacts"
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    email = Column(String)
-    phone = Column(String)
-    domain = Column(String)
+engine = create_engine(DB_PATH, connect_args={"check_same_thread": False})
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-class Interaction(Base):
-    __tablename__ = "interactions"
-    id = Column(Integer, primary_key=True)
-    contact_id = Column(Integer)
-    date = Column(DateTime)
-    notes = Column(Text)
-    summary = Column(Text)
-    important = Column(Boolean)
-
-Base.metadata.create_all(engine)
+def init_db():
+    from models import models
+    Base.metadata.create_all(bind=engine)
