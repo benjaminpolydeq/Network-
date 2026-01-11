@@ -1,6 +1,6 @@
 from cryptography.fernet import Fernet
 
-# Générer une clé une fois et la stocker dans un fichier sécurisé
+# Générer une clé une fois
 KEY = Fernet.generate_key()
 cipher = Fernet(KEY)
 
