@@ -1,0 +1,35 @@
+# Framework Web
+streamlit==1.31.0
+
+# Base de données
+sqlalchemy==2.0.25
+alembic==1.13.1
+
+# IA et NLP
+openai==1.12.0
+anthropic==0.18.1
+langchain==0.1.9
+langchain-openai==0.0.6
+langchain-anthropic==0.1.4
+
+# Traitement de texte
+python-dotenv==1.0.1
+tiktoken==0.6.0
+
+# Utilitaires
+python-dateutil==2.8.2
+pydantic==2.6.1
+
+# Base de données SQLite (inclus avec Python mais explicite)
+# sqlite3 est intégré à Python
+
+# Optionnel : PostgreSQL si besoin
+# psycopg2-binary==2.9.9
+
+# Optionnel : MySQL si besoin
+# pymysql==1.1.0
+
+# Pour le développement
+pytest==8.0.1
+black==24.2.0
+flake8==7.0.0
