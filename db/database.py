@@ -8,5 +8,5 @@ engine = create_engine(DB_PATH, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def init_db():
-    from models import models
+    from . import models
     Base.metadata.create_all(bind=engine)
