@@ -3,7 +3,7 @@ from db.database import init_db, SessionLocal
 from db.crud import create_contact, get_contacts
 from utils.security import encrypt, decrypt
 
-# Init DB
+# INIT
 init_db()
 db = SessionLocal()
 
@@ -15,8 +15,12 @@ st.set_page_config(
 
 st.title("📇 Network — Agenda Intelligent de Networking")
 
-# FORMULAIRE
-with st.form("add_contact"):
+# SESSION STATE
+if "saved" not in st.session_state:
+    st.session_state.saved = False
+
+# FORM
+with st.form("add_contact", clear_on_submit=True):
     st.subheader("➕ Ajouter un contact")
     name = st.text_input("Nom")
     contact_info = st.text_input("Contact")
@@ -35,10 +39,17 @@ with st.form("add_contact"):
             "topics": topics,
             "next_action": next_action
         })
-        st.success("Contact enregistré avec succès")
+        st.session_state.saved = True
 
-# LISTE
+# MESSAGE APRÈS RERUN
+if st.session_state.saved:
+    st.success("✅ Contact enregistré avec succès")
+    st.session_state.saved = False
+
+# LISTE CONTACTS
+st.divider()
 st.subheader("📂 Contacts enregistrés")
+
 contacts = get_contacts(db)
 
 for c in contacts:
