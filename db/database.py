@@ -2,11 +2,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
 Base = declarative_base()
-DB_PATH = "sqlite:///network.db"
 
-engine = create_engine(DB_PATH, connect_args={"check_same_thread": False})
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+engine = create_engine(
+    "sqlite:///network.db",
+    connect_args={"check_same_thread": False}
+)
+
+SessionLocal = sessionmaker(bind=engine)
 
 def init_db():
-    from . import models
+    from .models import Contact
     Base.metadata.create_all(bind=engine)
