@@ -1,11 +1,22 @@
 from cryptography.fernet import Fernet
+import os
 
-# Générer une clé une fois
-KEY = Fernet.generate_key()
-cipher = Fernet(KEY)
+KEY_FILE = "secret.key"
+
+def get_cipher():
+    if not os.path.exists(KEY_FILE):
+        key = Fernet.generate_key()
+        with open(KEY_FILE, "wb") as f:
+            f.write(key)
+    else:
+        with open(KEY_FILE, "rb") as f:
+            key = f.read()
+    return Fernet(key)
+
+cipher = get_cipher()
 
 def encrypt(text: str) -> str:
     return cipher.encrypt(text.encode()).decode()
 
-def decrypt(token: str) -> str:
-    return cipher.decrypt(token.encode()).decode()
+def decrypt(text: str) -> str:
+    return cipher.decrypt(text.encode()).decode()
