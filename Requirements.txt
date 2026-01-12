@@ -1,5 +1,0 @@
-streamlit==1.31.0
-sqlalchemy==2.0.25
-pandas
-cryptography
-python-dateutil
